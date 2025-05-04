@@ -11,8 +11,10 @@ const Home = () => {
     { id: 4, title: "Elia's favorite", release_date: "2018" },
   ];
 
-  const handleSearch = () => {
+  const handleSearch = (e) => {
+    e.preventDefault();
     alert(searchQ);
+    setSearchQ("");
   };
 
   return (
@@ -30,9 +32,13 @@ const Home = () => {
         </button>
       </form>
       <div className="movies-grid">
-        {movies.map((movie) => (
-          <MovieCard movie={movie} key={movie.id} />
-        ))}
+        {movies.map(
+          (movie) =>
+            // to search the specific name/movie
+            movie.title.toLowerCase().startsWith(searchQ) && (
+              <MovieCard movie={movie} key={movie.id} />
+            )
+        )}
       </div>
     </div>
   );
